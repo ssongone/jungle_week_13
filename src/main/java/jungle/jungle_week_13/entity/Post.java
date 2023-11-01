@@ -1,6 +1,7 @@
 package jungle.jungle_week_13.entity;
 
 import jungle.jungle_week_13.dto.PostRequestDto;
+import jungle.jungle_week_13.dto.PostRespondDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,5 +39,15 @@ public class Post extends Timestamped{
         this.author = postRequestDto.getAuthor();
         this.content = postRequestDto.getContent();
         this.password = postRequestDto.getPassword();
+    }
+
+    public PostRespondDto convertToDto() {
+        PostRespondDto dto = new PostRespondDto();
+        dto.setTitle(this.title);
+        dto.setAuthor(this.author);
+        dto.setContent(this.content);
+        dto.setCreateAt(this.getCreateAt());
+
+        return dto;
     }
 }

@@ -1,14 +1,12 @@
 package jungle.jungle_week_13.controller;
 
 import jungle.jungle_week_13.dto.PostRequestDto;
+import jungle.jungle_week_13.dto.PostRespondDto;
 import jungle.jungle_week_13.dto.PostSummary;
 import jungle.jungle_week_13.entity.Post;
 import jungle.jungle_week_13.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +21,13 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostSummary> getMemos() {
+    public List<PostSummary> getPosts() {
         return postService.getPosts();
+    }
+
+    @GetMapping("/posts/{id}")
+    public PostRespondDto getPost(@PathVariable Long id) {
+        return postService.getPost(id);
     }
 
 }
