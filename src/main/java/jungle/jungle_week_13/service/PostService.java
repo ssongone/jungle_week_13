@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,30 @@ public class PostService {
         Post post = postRepository.findById(id).orElse(null);
         return post.convertToDto();
     }
+
+    @Transactional
+    public PostRespondDto updatePost(Long id, PostRequestDto requestDto) {
+        Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        if (!post.getPassword().equals(requestDto.getPassword()))
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다");
+
+        post.update(requestDto);
+
+        return post.convertToDto();
+    }
+
+    @Transactional
+    public void deletePost(Long id, String password) {
+        Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        if (!post.getPassword().equals(password))
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다");
+
+        postRepository.deleteById(id);
+    }
+
+
+
 
 
 }

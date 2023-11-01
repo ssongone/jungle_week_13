@@ -50,4 +50,10 @@ public class Post extends Timestamped{
 
         return dto;
     }
+
+    public void update(PostRequestDto postRequestDto) {
+        this.title = postRequestDto.getTitle();
+        this.author = postRequestDto.getAuthor();
+        this.content = postRequestDto.getContent();
+    }
 }
