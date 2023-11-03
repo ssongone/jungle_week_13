@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @RestController
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<BasicResponse> login(@RequestBody User user) {
-        return userService.login(user);
+    public ResponseEntity<BasicResponse> login(@RequestBody User user, HttpServletResponse response) {
+        return userService.login(user, response);
     }
 }
