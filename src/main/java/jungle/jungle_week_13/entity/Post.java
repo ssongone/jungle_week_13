@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // - 제목, 작성자명, 작성 내용, 작성 날짜를 조회하기
 @Getter
@@ -27,6 +29,9 @@ public class Post extends Timestamped{
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "post") // 일대다 관계 설정
+    private List<Comment> comments = new ArrayList<>();
 
     public Post(String title, String author, String content, String password) {
         this.title = title;
