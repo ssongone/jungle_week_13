@@ -1,7 +1,7 @@
 package jungle.jungle_week_13.controller;
 
+import jungle.jungle_week_13.dto.UserRequestDto;
 import jungle.jungle_week_13.entity.SignupRequestDto;
-import jungle.jungle_week_13.entity.User;
 import jungle.jungle_week_13.response.BasicResponse;
 import jungle.jungle_week_13.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<BasicResponse> login(@RequestBody User user, HttpServletResponse response) {
-        return userService.login(user, response);
+    public ResponseEntity<BasicResponse> login(@RequestBody UserRequestDto dto, HttpServletResponse response) {
+        return userService.login(dto, response);
     }
 }

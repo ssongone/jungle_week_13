@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class PostRespondDto {
+    private Long id;
     private String title;
     private String author;
     private String content;

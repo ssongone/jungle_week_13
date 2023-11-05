@@ -30,8 +30,8 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "post") // 일대다 관계 설정
-    private List<Comment> comments = new ArrayList<>();
+//    @OneToMany(mappedBy = "post") // 일대다 관계 설정
+//    private List<Comment> comments = new ArrayList<>();
 
     public Post(String title, String author, String content, String password) {
         this.title = title;
@@ -48,6 +48,7 @@ public class Post extends Timestamped{
 
     public PostRespondDto convertToDto() {
         PostRespondDto dto = new PostRespondDto();
+        dto.setId(this.id);
         dto.setTitle(this.title);
         dto.setAuthor(this.author);
         dto.setContent(this.content);

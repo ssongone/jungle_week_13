@@ -23,4 +23,12 @@ public class Comment extends Timestamped{
     private User commenter;
 
     private String content;
+
+    public Comment(Post post, User user, String content) {
+        this.post = post;
+        this.commenter = user;
+        this.content = content;
+    }
+
+
 }
