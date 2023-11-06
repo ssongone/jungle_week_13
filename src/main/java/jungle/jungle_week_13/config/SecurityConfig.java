@@ -30,9 +30,8 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/login", "/register").permitAll()
-//                .antMatchers("/posts").permitAll()
-
-                .antMatchers("/posts").hasRole("USER")
+                .antMatchers("/posts").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/comments").hasAnyRole("USER", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .headers()

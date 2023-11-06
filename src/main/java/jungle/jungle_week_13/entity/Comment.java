@@ -1,5 +1,6 @@
 package jungle.jungle_week_13.entity;
 
+import jungle.jungle_week_13.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,6 +30,11 @@ public class Comment extends Timestamped{
         this.commenter = user;
         this.content = content;
     }
+
+    public void update(CommentRequestDto dto) {
+        this.content = dto.getContent();
+    }
+
 
 
 }

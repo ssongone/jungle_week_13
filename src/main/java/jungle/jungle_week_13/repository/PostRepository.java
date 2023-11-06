@@ -11,8 +11,4 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<PostSummary> findAllByOrderByCreateAtDesc();
-    Optional<Post> findById(Long id);
-
-    void deleteById(Long id);
-
 }
