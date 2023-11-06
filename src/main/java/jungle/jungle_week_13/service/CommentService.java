@@ -42,7 +42,7 @@ public class CommentService {
 
             return comment;
         } else
-            throw new IllegalArgumentException("사용자 정보를 가져올 수 없습니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 
     }
 
@@ -67,13 +67,13 @@ public class CommentService {
 
 //                throw new AccessDeniedException("Access is denied");
                 if (userIdByToken != userIdByComment)
-                    throw new IllegalArgumentException("Access is denied");
+                    throw new IllegalArgumentException("작성자만 수정할 수 있습니다");
             }
 
             comment.update(requestDto);
             return comment;
         } else
-            throw new IllegalArgumentException("사용자 정보를 가져올 수 없습니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 
     }
     @Transactional
@@ -96,15 +96,15 @@ public class CommentService {
 
 //                throw new AccessDeniedException("Access is denied");
                 if (userIdByToken != userIdByComment)
-                    throw new IllegalArgumentException("Access is denied");
+                    throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
             }
 
             commentRepository.deleteById(commentId);
-            BasicResponse response = new BasicResponse(HttpStatus.NO_CONTENT, "삭제 완료");
+            BasicResponse response = new BasicResponse(HttpStatus.NO_CONTENT.value(), "삭제 완료");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
         } else
-            throw new IllegalArgumentException("사용자 정보를 가져올 수 없습니다.");
+            throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 
     }
 }

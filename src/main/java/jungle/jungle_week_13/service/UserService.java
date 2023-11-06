@@ -61,7 +61,7 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(newPw);
         User user = new User(newId, encodedPassword, role);
         userRepository.save(user);
-        BasicResponse response = new BasicResponse(HttpStatus.CREATED, "회원 등록 완료되었습니다.");
+        BasicResponse response = new BasicResponse(HttpStatus.CREATED.value(), "회원 등록 완료되었습니다.");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -69,14 +69,13 @@ public class UserService {
     public ResponseEntity<BasicResponse> login(UserRequestDto dto, HttpServletResponse response) {
         String nowId = dto.getUserId();
         String nowPw = dto.getPassword();
-        System.out.println(nowId + nowPw);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(nowId, nowPw);
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
 
         response.addHeader("Authorization", "Bearer " + tokenInfo.getAccessToken());
 
-        BasicResponse gg = new BasicResponse(HttpStatus.OK, "로그인 성공");
+        BasicResponse gg = new BasicResponse(HttpStatus.OK.value(), "로그인 성공");
         return new ResponseEntity<>(gg, HttpStatus.OK);
     }
 }
