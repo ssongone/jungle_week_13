@@ -4,9 +4,11 @@ import jungle.jungle_week_13.dto.PostRequestDto;
 import jungle.jungle_week_13.dto.PostRespondDto;
 import jungle.jungle_week_13.dto.PostSummary;
 import jungle.jungle_week_13.entity.Post;
+import jungle.jungle_week_13.response.BasicResponse;
 import jungle.jungle_week_13.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +38,7 @@ public class PostController {
     }
 
     @DeleteMapping("/posts/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePost(@PathVariable Long id, @RequestBody String password) {
-        postService.deletePost(id, password);
+    public ResponseEntity<BasicResponse> deletePost(@PathVariable Long id) {
+        return postService.deletePost(id);
     }
 }

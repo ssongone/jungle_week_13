@@ -3,6 +3,7 @@ package jungle.jungle_week_13.service;
 import jungle.jungle_week_13.dto.CommentRequestDto;
 import jungle.jungle_week_13.entity.Comment;
 import jungle.jungle_week_13.entity.Post;
+import jungle.jungle_week_13.exception.UnauthorizedAccessException;
 import jungle.jungle_week_13.repository.CommentRepository;
 import jungle.jungle_week_13.repository.PostRepository;
 import jungle.jungle_week_13.repository.UserRepository;
@@ -67,7 +68,7 @@ public class CommentService {
 
 //                throw new AccessDeniedException("Access is denied");
                 if (userIdByToken != userIdByComment)
-                    throw new IllegalArgumentException("작성자만 수정할 수 있습니다");
+                    throw new UnauthorizedAccessException("작성자만 수정할 수 있습니다");
             }
 
             comment.update(requestDto);
@@ -96,7 +97,7 @@ public class CommentService {
 
 //                throw new AccessDeniedException("Access is denied");
                 if (userIdByToken != userIdByComment)
-                    throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+                    throw new UnauthorizedAccessException("작성자만 삭제할 수 있습니다.");
             }
 
             commentRepository.deleteById(commentId);

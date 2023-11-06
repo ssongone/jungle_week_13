@@ -21,29 +21,21 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
 
     @Column
     private String content;
 
-    @Column(nullable = false)
-    private String password;
-
-//    @OneToMany(mappedBy = "post") // 일대다 관계 설정
-//    private List<Comment> comments = new ArrayList<>();
-
-    public Post(String title, String author, String content, String password) {
+    public Post(String title, User author, String content) {
         this.title = title;
         this.author = author;
         this.content = content;
-        this.password = password;
     }
     public Post(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
-        this.author = postRequestDto.getAuthor();
         this.content = postRequestDto.getContent();
-        this.password = postRequestDto.getPassword();
     }
 
     public PostRespondDto convertToDto() {
@@ -59,7 +51,6 @@ public class Post extends Timestamped{
 
     public void update(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
-        this.author = postRequestDto.getAuthor();
         this.content = postRequestDto.getContent();
     }
 }

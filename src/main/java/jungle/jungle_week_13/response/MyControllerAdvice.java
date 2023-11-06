@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import jungle.jungle_week_13.exception.InvalidJwtException;
+import jungle.jungle_week_13.exception.UnauthorizedAccessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class MyControllerAdvice {
     @ExceptionHandler(BadCredentialsException.class)
     public BasicResponse handleBadCredentialsException(BadCredentialsException e) {
         return new BasicResponse(HttpStatus.BAD_REQUEST.value(), "회원을 찾을 수 없습니다");
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    public BasicResponse handleUnauthorizedAccessException(UnauthorizedAccessException e) {
+        return new BasicResponse(HttpStatus.FORBIDDEN.value(), e.getMessage());
     }
 
 

@@ -1,19 +1,11 @@
 package jungle.jungle_week_13.service;
 
-import jungle.jungle_week_13.dto.PostRequestDto;
-import jungle.jungle_week_13.dto.PostRespondDto;
-import jungle.jungle_week_13.dto.PostSummary;
 import jungle.jungle_week_13.dto.UserRequestDto;
-import jungle.jungle_week_13.entity.Post;
 import jungle.jungle_week_13.entity.SignupRequestDto;
 import jungle.jungle_week_13.entity.User;
-import jungle.jungle_week_13.entity.UserRoleEnum;
 import jungle.jungle_week_13.jwt.JwtTokenProvider;
-import jungle.jungle_week_13.jwt.JwtUtil;
 import jungle.jungle_week_13.jwt.TokenInfo;
-import jungle.jungle_week_13.repository.PostRepository;
 import jungle.jungle_week_13.repository.UserRepository;
-import jungle.jungle_week_13.response.ApiResponse;
 import jungle.jungle_week_13.response.BasicResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.Optional;
 
 @Service
