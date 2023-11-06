@@ -1,6 +1,7 @@
 package jungle.jungle_week_13.service;
 
 import jungle.jungle_week_13.dto.CommentRequestDto;
+import jungle.jungle_week_13.dto.CommentResponseDto;
 import jungle.jungle_week_13.entity.Comment;
 import jungle.jungle_week_13.entity.Post;
 import jungle.jungle_week_13.exception.UnauthorizedAccessException;
@@ -29,7 +30,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public Comment createComment(CommentRequestDto requestDto) {
+    public CommentResponseDto createComment(CommentRequestDto requestDto) {
         Long postId = requestDto.getPostId();
 
         Post post = postRepository.findById(postId)
@@ -40,15 +41,15 @@ public class CommentService {
             User currentUser = (User) authentication.getPrincipal();
             Comment comment = new Comment(post, userRepository.findByUserId(currentUser.getUsername()).get(), requestDto.getContent());
             commentRepository.save(comment);
-
-            return comment;
+            post.addComment(comment);
+            return comment.convertToDto();
         } else
             throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 
     }
 
     @Transactional
-    public Comment update(CommentRequestDto requestDto) {
+    public CommentResponseDto update(CommentRequestDto requestDto) {
         Long commentId = requestDto.getPostId(); //사실 넘어오는 거 commentId임
 
         Comment comment = commentRepository.findById(commentId)
@@ -72,7 +73,7 @@ public class CommentService {
             }
 
             comment.update(requestDto);
-            return comment;
+            return comment.convertToDto();
         } else
             throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 

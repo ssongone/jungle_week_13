@@ -1,7 +1,6 @@
 package jungle.jungle_week_13.service;
 
-import jungle.jungle_week_13.dto.PostRespondDto;
-import jungle.jungle_week_13.dto.PostSummary;
+import jungle.jungle_week_13.dto.PostResponseDto;
 import jungle.jungle_week_13.dto.PostRequestDto;
 import jungle.jungle_week_13.entity.Post;
 import jungle.jungle_week_13.exception.UnauthorizedAccessException;
@@ -20,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,18 +47,20 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostSummary> getPosts() {
-        return postRepository.findAllByOrderByCreateAtDesc();
+    public List<PostResponseDto> getPosts() {
+        return postRepository.findAllByOrderByCreateAtDesc().stream()
+                .map(post -> post.convertToDto())
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public PostRespondDto getPost(Long id) {
+    public PostResponseDto getPost(Long id) {
         Post post = postRepository.findById(id).orElse(null);
         return post.convertToDto();
     }
 
     @Transactional
-    public PostRespondDto updatePost(Long id, PostRequestDto requestDto) {
+    public PostResponseDto updatePost(Long id, PostRequestDto requestDto) {
         Post post = postRepository.findById(id).orElseThrow(EntityNotFoundException::new);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

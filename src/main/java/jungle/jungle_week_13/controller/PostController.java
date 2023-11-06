@@ -1,13 +1,11 @@
 package jungle.jungle_week_13.controller;
 
 import jungle.jungle_week_13.dto.PostRequestDto;
-import jungle.jungle_week_13.dto.PostRespondDto;
-import jungle.jungle_week_13.dto.PostSummary;
+import jungle.jungle_week_13.dto.PostResponseDto;
 import jungle.jungle_week_13.entity.Post;
 import jungle.jungle_week_13.response.BasicResponse;
 import jungle.jungle_week_13.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,16 +22,16 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostSummary> getPosts() {
+    public List<PostResponseDto> getPosts() {
         return postService.getPosts();
     }
 
     @GetMapping("/posts/{id}")
-    public PostRespondDto getPost(@PathVariable Long id) {
+    public PostResponseDto getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
     @PatchMapping("/posts/{id}")
-    public PostRespondDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.updatePost(id, requestDto);
     }
 

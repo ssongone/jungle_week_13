@@ -1,6 +1,10 @@
 package jungle.jungle_week_13.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jungle.jungle_week_13.dto.CommentRequestDto;
+import jungle.jungle_week_13.dto.CommentResponseDto;
+import jungle.jungle_week_13.dto.PostResponseDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment extends Timestamped{
 
     @Id
@@ -35,6 +40,13 @@ public class Comment extends Timestamped{
         this.content = dto.getContent();
     }
 
-
+    public CommentResponseDto convertToDto() {
+        CommentResponseDto dto = new CommentResponseDto(
+                this.getCommenter().getUserId(),
+                this.getContent(),
+                this.getCreateAt()
+        );
+        return dto;
+    }
 
 }
