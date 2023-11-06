@@ -105,8 +105,8 @@ public class PostService {
                     throw new UnauthorizedAccessException("작성자만 삭제할 수 있습니다.");
             }
             postRepository.deleteById(id);
-            BasicResponse response = new BasicResponse(HttpStatus.NO_CONTENT.value(), "삭제 완료");
-            return new ResponseEntity<>(response, HttpStatus.NO_CONTENT);
+            BasicResponse response = new BasicResponse(HttpStatus.OK.value(), "삭제 완료");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else
             throw new IllegalArgumentException("토큰이 유효하지 않습니다");
 

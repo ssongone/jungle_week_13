@@ -17,8 +17,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts")
-    public Post createMemo(@RequestBody PostRequestDto requestDto) {
-        return postService.createPost(requestDto);
+    public PostResponseDto createMemo(@RequestBody PostRequestDto requestDto) {
+        return postService.createPost(requestDto).convertToDto();
     }
 
     @GetMapping("/posts")
